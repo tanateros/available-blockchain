@@ -1,4 +1,15 @@
 {
+  "name": "tanateros/available-blockchain",
+  "description": "Available easy Blockchain",
+  "version": "0.1",
+  "keywords": ["blockchain", "miner"],
+  "authors": [
+    {
+      "name": "Yuriy Malinovsky",
+      "email": "tanateros_pzas@bigmir.net"
+    }
+  ],
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "AvailableBlockchain\\": "src/",
