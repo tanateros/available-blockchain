@@ -47,15 +47,43 @@ class Blockchain implements BlockchainInterface
             throw new \Exception('Don\'t set blockchain');
         }
 
+        if ($data instanceof BlockchainEntity) {
+            $this->blockchain->addParent($data->getParentData());
+            $data = $data->getData();
+        }
+
         $this->blockchain->addBlock($data);
+
         return $this;
     }
 
+    /**
+     * @return BlockchainEntity
+     */
+    public function get()
+    {
+        return $this->blockchain;
+    }
+
+    public function merge()
+    {
+        // TODO: Implement merge() method.
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @throws \Exception
+     */
     public function __call($name, $arguments)
     {
         throw new \Exception('Method not exists.');
     }
 
+    /**
+     * @param $name
+     * @throws \Exception
+     */
     public function __get($name)
     {
         throw new \Exception("Property {$name} not exists in the class.");

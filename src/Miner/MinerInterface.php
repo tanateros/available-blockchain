@@ -2,7 +2,7 @@
 
 namespace AvailableBlockchain\Miner;
 
-use AvailableBlockchain\BlockchainEntity;
+use AvailableBlockchain\Entity\BlockchainEntity;
 
 /**
  * Interface MinerInterface
@@ -44,8 +44,8 @@ interface MinerInterface
     /**
      * Get data
      *
-     * @param $blockchainHash
+     * @param $hashId int
      * @return BlockchainEntity
      */
-    public function get(BlockchainEntity $blockchainHash);
+    public function get($hashId);
 }

@@ -15,5 +15,8 @@
       "AvailableBlockchain\\": "src/",
       "LoggerBlockchainExample\\": "example/LoggerBlockchainExample/"
     }
+  },
+  "require": {
+    "doctrine/orm": "^2.5"
   }
 }
