@@ -30,6 +30,5 @@ $bc2->addBlock('{"text": "second data"}');
 $prepareBc2 = $bc2->prepareSave();
 
 $miner = new AvailableBlockchain\Miner\Mainer($em);
-$miner->create($prepareBc1);
-
-$blockchain = new \LoggerBlockchainExample\LoggerBlockchain();
+$newBc1 = $miner->create($prepareBc1);
+$newBc2 = $miner->create($prepareBc2);

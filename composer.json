@@ -12,8 +12,7 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "AvailableBlockchain\\": "src/",
-      "LoggerBlockchainExample\\": "example/LoggerBlockchainExample/"
+      "AvailableBlockchain\\": "src/"
     }
   },
   "require": {

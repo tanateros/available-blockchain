@@ -38,6 +38,14 @@ class BlockchainEntity
     protected $parents = [];
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->hashId;
+    }
+
+    /**
      * @param mixed $data
      * @return $this
      */

@@ -27,12 +27,17 @@ class Mainer implements MinerInterface
         $this->repository = $em->getRepository("AvailableBlockchain\\Entity\\BlockchainEntity");
     }
 
+    /**
+     * @param BlockchainEntity $blockchain
+     * @return id
+     */
     public function create(BlockchainEntity $blockchain)
     {
         // TODO need add validate
-        var_dump($blockchain);
         $this->em->persist($blockchain);
         $this->em->flush();
+
+        return $blockchain->getId();
     }
 
     /**
@@ -49,12 +54,15 @@ class Mainer implements MinerInterface
         // TODO: Implement isCorrect() method.
     }
 
-    public function remove(BlockchainEntity $blockchain)
+    public function save(BlockchainEntity $blockchain)
     {
-        // TODO: Implement remove() method.
     }
 
-    public function save(BlockchainEntity $blockchain)
+    /**
+     * @param BlockchainEntity $blockchain
+     * @throws \Exception
+     */
+    public function remove(BlockchainEntity $blockchain)
     {
         throw new \Exception('Remove is not allow.');
     }
