@@ -49,6 +49,11 @@ class Mainer implements MinerInterface
         return $this->repository->find($hashId);
     }
 
+    /**
+     * TODO - need implement
+     *
+     * @param BlockchainEntity $blockchain
+     */
     public function isCorrect(BlockchainEntity $blockchain)
     {
         // TODO: Implement isCorrect() method.
@@ -56,6 +61,30 @@ class Mainer implements MinerInterface
 
     public function save(BlockchainEntity $blockchain)
     {
+        /*
+         * TODO - this for if needs be
+        $qb = $this->em->createQueryBuilder();
+        $q = $qb->update('AvailableBlockchain\\Entity\\BlockchainEntity', 'b')
+            ->set(
+                'b.data',
+                $qb->expr()->literal($blockchain->getData())
+            )
+            ->set(
+                'b.previous',
+                $qb->expr()->literal($blockchain->getPrevious())
+            )
+            ->set(
+                'b.parents',
+                $qb->expr()->literal($blockchain->getParents())
+            )
+            ->where('u.id = ?1')
+            ->setParameter(1, $blockchain->getId())
+            ->getQuery();
+        $p = $q->execute();
+
+        return $p;
+        */
+        return self::create($blockchain);
     }
 
     /**

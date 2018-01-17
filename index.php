@@ -9,6 +9,10 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 $paths = array(__DIR__ . "/src/Entity/");
+/*
+ * Need run code in console:
+ * php vendor/bin/doctrine orm:schema-tool:create
+ */
 $isDevMode = false;
 
 $dbParams = array(
@@ -30,5 +34,16 @@ $bc2->addBlock('{"text": "second data"}');
 $prepareBc2 = $bc2->prepareSave();
 
 $miner = new AvailableBlockchain\Miner\Mainer($em);
-$newBc1 = $miner->create($prepareBc1);
-$newBc2 = $miner->create($prepareBc2);
+$bc1Id = $miner->create($prepareBc1);
+$bc2Id = $miner->create($prepareBc2);
+
+$mainBc1 = $miner->get($bc1Id);
+$mainBc2 = $miner->get($bc2Id);
+
+$mainBc1->addBlock($mainBc1->getData());
+$mainBc1->addParent($mainBc1->getId());
+$mainBc1->addBlock($mainBc2->getData());
+$mainBc1->addParent($mainBc2->getId());
+
+$prepareNewBc1 = $bc1->prepareSave($mainBc1->getId());
+$miner->save($prepareNewBc1);

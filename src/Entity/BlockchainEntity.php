@@ -21,10 +21,12 @@ class BlockchainEntity
      */
     protected $hashId;
     /**
-     * @var string
+     * @var string|array
      * @ORM\Column(name="data", type="string")
      */
-    protected $poolData = [];
+    protected $data;
+
+    static $poolData = [];
     /**
      * Only one - when first initial
      * @var string
@@ -35,7 +37,9 @@ class BlockchainEntity
      * @var string
      * @ORM\Column(name="parents", type="string")
      */
-    protected $parents = [];
+    protected $parents;
+
+    static $parentsData = [];
 
     /**
      * @return mixed
@@ -46,37 +50,43 @@ class BlockchainEntity
     }
 
     /**
-     * @param mixed $data
+     * @param string $data
      * @return $this
      */
     public function addBlock($data)
     {
-        $this->poolData[] = $data;
+        static::$poolData[] = $data;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function prepareSave()
+    public function prepareSave($id = null)
     {
         $class = static::class;
         /** @var $this $newBlockchain */
         $newBlockchain = new $class();
-        $newBlockchain->previous = $this->hashId;
-        $newBlockchain->poolData = implode(';', $this->poolData);
-        $newBlockchain->parents = implode(';', $this->parents);
+        $newBlockchain->previous = $id;
+        foreach (static::$poolData as $item) {
+            if (is_array($item)) {
+                $newBlockchain->data .= json_encode($item);
+            } else {
+                $newBlockchain->data .= $item;
+            }
+        }
+        $newBlockchain->parents = implode(';', static::$parentsData);
         $newBlockchain->hashId = $this->hashId + 1;
 
         return $newBlockchain;
     }
 
     /**
-     * @param $blockchain $this
+     * @return array
      */
-    public function getParentData()
+    public function getParents()
     {
-        return $this->previous;
+        return static::$parentsData;
     }
 
     /**
@@ -84,7 +94,15 @@ class BlockchainEntity
      */
     public function getData()
     {
-        return $this->poolData;
+        return static::$poolData;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrevious()
+    {
+        return $this->previous;
     }
 
     /**
@@ -93,7 +111,7 @@ class BlockchainEntity
      */
     public function addParent($parent)
     {
-        $this->parents[] = $parent;
+        static::$parentsData[] = $parent;
         return $this;
     }
 }

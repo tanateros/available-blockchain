@@ -1,6 +1,7 @@
 <?php
 
 namespace AvailableBlockchain;
+use AvailableBlockchain\Entity\BlockchainEntity;
 
 /**
  * Interface BlockchainInterface
